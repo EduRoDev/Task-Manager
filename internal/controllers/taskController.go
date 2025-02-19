@@ -35,6 +35,7 @@ func (tc *TaskController) CreateTaskHandler(c *gin.Context) {
 	}
 
 	go services.CheckDueTaskAndSendSMS()
+	go services.CheckDueTaskandSendTelegram()
 	c.JSON(http.StatusCreated, task)
 }
 
@@ -58,6 +59,7 @@ func (tc *TaskController) UpdateTaskHandler(c *gin.Context) {
 	}
 
 	go services.CheckDueTaskAndSendSMS()
+	go services.CheckDueTaskandSendTelegram()
 	c.JSON(http.StatusOK, updatedTask)
 }
 

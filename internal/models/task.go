@@ -7,7 +7,8 @@ type Task struct {
 	Title       string `json:"title" gorm:"not null"`
 	Description string `json:"description"`
 	IsDone      bool   `json:"is_done" gorm:"default:false"`
-	Notified  bool      `json:"notified" gorm:"default:false"`
+	NotifiedSms  bool      `json:"notified_sms" gorm:"default:false"`
+	NotifiedTelegram  bool      `json:"notified_telegram" gorm:"default:false"`
 	CreatedAt   time.Time      `json:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at"`
 }

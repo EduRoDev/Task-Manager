@@ -41,7 +41,7 @@ func SendSMS(to string, message string) error {
 
 func CheckDueTaskAndSendSMS() {
     var tasks []models.Task
-    result := config.Db.Where("notified = ?", false).Find(&tasks)
+    result := config.Db.Where("notified_sms = ?", false).Find(&tasks)
 
     if result.Error != nil {
         log.Println("❌ Error al obtener las tareas a vencer:", result.Error)
@@ -52,12 +52,13 @@ func CheckDueTaskAndSendSMS() {
         message := fmt.Sprintf("📌 Recordatorio: Tu tarea '%s' vence pronto! ⏳", task.Title)
 
         err := SendSMS("+573016672931", message)
+        
         if err != nil {
             log.Println("❌ Error al enviar el SMS:", err)
         } else {
             log.Println("✅ SMS enviado con éxito para la tarea:", task.Title)
 
-            task.Notified = true
+            task.NotifiedSms = true
             config.Db.Save(&task)
         }
     }
