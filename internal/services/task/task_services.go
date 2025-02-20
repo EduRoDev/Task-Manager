@@ -8,11 +8,11 @@ import (
 	"github.com/EduRoDev/TaskManager/internal/models"
 )
 
-// TaskService is a struct that contains the methods to interact with the database
+
 type TaskService struct{}
 
 
-// GetAllTasks returns all tasks from the database
+
 func (ts *TaskService) GetAllTasks() ([]models.Task, error) {
 	var tasks []models.Task
 	result := config.Db.Find(&tasks)
@@ -22,7 +22,7 @@ func (ts *TaskService) GetAllTasks() ([]models.Task, error) {
 	return tasks, nil
 }
 
-// CreatTask creat all task 
+
 func (ts *TaskService) CreatTask(task *models.Task) error {
 	
 	result := config.Db.Create(task)

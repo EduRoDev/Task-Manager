@@ -1,14 +1,18 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Task struct {
-	ID          uint   `json:"id" gorm:"primaryKey"`
-	Title       string `json:"title" gorm:"not null"`
-	Description string `json:"description"`
-	IsDone      bool   `json:"is_done" gorm:"default:false"`
-	NotifiedSms  bool      `json:"notified_sms" gorm:"default:false"`
-	NotifiedTelegram  bool      `json:"notified_telegram" gorm:"default:false"`
-	CreatedAt   time.Time      `json:"created_at"`
-	UpdatedAt   time.Time      `json:"updated_at"`
+    ID              uint      `json:"id" gorm:"primaryKey"`
+    Title           string    `json:"title" gorm:"not null"`
+    Description     string    `json:"description"`
+    IsDone          bool      `json:"is_done"`
+    NotifiedSms     bool      `json:"notified_sms"`
+    NotifiedTelegram bool     `json:"notified_telegram"`
+    UserId          uint      `json:"user_id"`
+    User            User      `json:"user" gorm:"foreignKey:UserId;references:Id"`
+    CreatedAt       time.Time `json:"created_at"`
+    UpdatedAt       time.Time `json:"updated_at"`
 }

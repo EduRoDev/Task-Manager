@@ -18,7 +18,7 @@ func InitDB() {
 		log.Fatalf("Error al conectar con la base de datos: %v", err)
 	}
 
-	if err := Db.AutoMigrate(&models.Task{}); err != nil {
+	if err := Db.AutoMigrate(&models.Task{},&models.User{}); err != nil {
 		log.Fatalf("Error al migrar el modelo Task: %v", err)
 	}
 

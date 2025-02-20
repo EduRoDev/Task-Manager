@@ -5,7 +5,8 @@ import (
 	"strconv"
 
 	"github.com/EduRoDev/TaskManager/internal/models"
-	"github.com/EduRoDev/TaskManager/internal/services"
+	"github.com/EduRoDev/TaskManager/internal/services/messages"
+	services "github.com/EduRoDev/TaskManager/internal/services/task"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,8 +35,9 @@ func (tc *TaskController) CreateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	go services.CheckDueTaskAndSendSMS()
-	go services.CheckDueTaskandSendTelegram()
+	go messages.CheckDueTaskAndSendSMS()
+	go messages.CheckDueTaskandSendTelegram()
+	
 	c.JSON(http.StatusCreated, task)
 }
 
@@ -58,8 +60,8 @@ func (tc *TaskController) UpdateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	go services.CheckDueTaskAndSendSMS()
-	go services.CheckDueTaskandSendTelegram()
+	go messages.CheckDueTaskAndSendSMS()
+	go messages.CheckDueTaskandSendTelegram()
 	c.JSON(http.StatusOK, updatedTask)
 }
 
