@@ -38,6 +38,7 @@ func SetupRoutes() *gin.Engine {
 
     // Rutas de tareas
     r.GET("/tasks", taskController.GetAllTasksController)
+    r.GET("/tasks/user/:userID", taskController.GetTasksByUserIDController) 
     r.POST("/tasks", taskController.CreateTaskHandler)
     r.PUT("/tasks/:id", taskController.UpdateTaskHandler)
     r.DELETE("/tasks/:id", taskController.DeleteTaskController)

@@ -35,7 +35,7 @@ func (tc *TaskController) CreateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	go messages.CheckDueTaskAndSendSMS()
+	// go messages.CheckDueTaskAndSendSMS()
 	go messages.CheckDueTaskandSendTelegram()
 	
 	c.JSON(http.StatusCreated, task)
@@ -77,4 +77,20 @@ func (tc *TaskController) DeleteTaskController(c *gin.Context){
 		return
 	}
 	c.Status(http.StatusNoContent)
+}
+
+func (tc *TaskController) GetTasksByUserIDController(c *gin.Context) {
+    userID, err := strconv.Atoi(c.Param("userID"))
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+        return
+    }
+
+    tasks, err := tc.TaskServices.GetTasksByUserID(uint(userID))
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Error fetching tasks for user"})
+        return
+    }
+
+    c.JSON(http.StatusOK, tasks)
 }

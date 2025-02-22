@@ -17,7 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
                 throw new Error(data.error);
             });
         }
-        return response.json(); // Parsear la respuesta JSON
+        return response.json();
     })
     .then(data => {
         console.log('Respuesta completa del servidor:', data);
@@ -36,3 +36,4 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
         console.error('Error:', error);
     });
 });
+

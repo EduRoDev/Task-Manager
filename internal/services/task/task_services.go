@@ -8,10 +8,7 @@ import (
 	"github.com/EduRoDev/TaskManager/internal/models"
 )
 
-
 type TaskService struct{}
-
-
 
 func (ts *TaskService) GetAllTasks() ([]models.Task, error) {
 	var tasks []models.Task
@@ -22,9 +19,8 @@ func (ts *TaskService) GetAllTasks() ([]models.Task, error) {
 	return tasks, nil
 }
 
-
 func (ts *TaskService) CreatTask(task *models.Task) error {
-	
+
 	result := config.Db.Create(task)
 	if result.Error != nil {
 		log.Printf("Error al crear la tarea: %s", result.Error)
@@ -33,10 +29,9 @@ func (ts *TaskService) CreatTask(task *models.Task) error {
 	return nil
 }
 
-
-func (ts *TaskService) UpdateTask(id uint,Updatetask *models.Task) error{
+func (ts *TaskService) UpdateTask(id uint, Updatetask *models.Task) error {
 	var task models.Task
-	if err := config.Db.First(&task, id).Error; err != nil{
+	if err := config.Db.First(&task, id).Error; err != nil {
 		return errors.New("task not found")
 	}
 
@@ -53,11 +48,22 @@ func (ts *TaskService) UpdateTask(id uint,Updatetask *models.Task) error{
 	return nil
 }
 
-func (ts *TaskService) DeleteTask(id uint) error{
+func (ts *TaskService) DeleteTask(id uint) error {
 	result := config.Db.Delete(&models.Task{}, id)
 	if result.Error != nil {
-		log.Printf("Error al eliminar la tarea: %s",result.Error)
+		log.Printf("Error al eliminar la tarea: %s", result.Error)
 		return result.Error
 	}
 	return nil
 }
+
+func (ts *TaskService) GetTasksByUserID(userID uint) ([]models.Task, error) {
+	var tasks []models.Task
+	result := config.Db.Where("user_id = ?", userID).Find(&tasks)
+	if result.Error != nil {
+		log.Printf("Error al obtener las tareas del usuario %d: %s", userID, result.Error)
+		return nil, result.Error
+	}
+	return tasks, nil
+}
+

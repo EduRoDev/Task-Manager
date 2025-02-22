@@ -220,4 +220,44 @@ h1 {
         justify-content: flex-end;
         margin-top: 10px;
     }
+} 
+
+.getOut {
+    background-color: #dc3545; /* Color de fondo rojo */
+    color: white; /* Color del texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.getOut:hover {
+    background-color: #c82333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+.getOut:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); /* Sombra al enfocar */
+}
+
+#getOut {
+    background-color: #dc3545; /* Color de fondo rojo */
+    color: white; /* Color del texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+#getOut:hover {
+    background-color: #c82333; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+#getOut:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); /* Sombra al enfocar */
 }

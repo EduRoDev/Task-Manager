@@ -6,7 +6,7 @@ const Estatus = {
 const userId = localStorage.getItem('userId')
 
 async function LoadParams() {
-    const response = await fetch('http://localhost:8080/tasks')
+    const response = await fetch(`http://localhost:8080/tasks/user/${userId}`)
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`)
     const tasks = await response.json();
     renderTask(tasks)
