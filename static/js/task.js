@@ -3,6 +3,8 @@ const Estatus = {
     Pendiente: "Pendiente"
 }
 
+const userId = localStorage.getItem('userId')
+
 async function LoadParams() {
     const response = await fetch('http://localhost:8080/tasks')
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`)
@@ -32,13 +34,14 @@ function renderTask(tasks){
 }
 
 async function CreatTask(event) {
-    event.preventDefault(); // Evitar que el formulario se envíe y recargue la página
+    event.preventDefault(); 
     const title = document.getElementById('task-title').value;
     const description = document.getElementById('task-description').value;
     const task = {
         title: title,
         description: description,
-        is_done: false
+        is_done: false,
+        user_id: parseInt(userId)
     }
 
     const response = await fetch('http://localhost:8080/tasks', {
@@ -63,7 +66,7 @@ async function DeleteTask(id) {
         throw new Error(`Error HTTP: ${response.status}`);
     }
 
-    LoadParams(); // Recargar la lista de tareas
+    LoadParams(); 
 }
 
 async function EditTask(id) {
@@ -73,7 +76,8 @@ async function EditTask(id) {
     const task = {
         title: title,
         description: description,
-        is_done: is_done
+        is_done: is_done,
+        user_id: parseInt(userId)
     };
 
     const response = await fetch(`http://localhost:8080/tasks/${id}`, {

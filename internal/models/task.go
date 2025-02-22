@@ -11,8 +11,8 @@ type Task struct {
     IsDone          bool      `json:"is_done"`
     NotifiedSms     bool      `json:"notified_sms"`
     NotifiedTelegram bool     `json:"notified_telegram"`
-    UserId          uint      `json:"user_id"`
-    User            User      `json:"user" gorm:"foreignKey:UserId;references:Id"`
+    UserID          uint      `json:"user_id"`
+    User            User      `json:"user" gorm:"foreignKey:UserID;references:ID"`
     CreatedAt       time.Time `json:"created_at"`
     UpdatedAt       time.Time `json:"updated_at"`
 }

@@ -43,6 +43,7 @@ func (ts *TaskService) UpdateTask(id uint,Updatetask *models.Task) error{
 	task.Title = Updatetask.Title
 	task.Description = Updatetask.Description
 	task.IsDone = Updatetask.IsDone
+	task.UserID = Updatetask.UserID
 
 	result := config.Db.Save(&task)
 	if result.Error != nil {

@@ -60,7 +60,7 @@ func (tc *TaskController) UpdateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	go messages.CheckDueTaskAndSendSMS()
+	//go messages.CheckDueTaskAndSendSMS()
 	go messages.CheckDueTaskandSendTelegram()
 	c.JSON(http.StatusOK, updatedTask)
 }
