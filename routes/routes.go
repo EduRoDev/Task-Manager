@@ -11,11 +11,11 @@ import (
 )
 
 func SetupRoutes() *gin.Engine {
-    r := gin.Default()
+    App := gin.Default()
    
 
     // Configurar CORS
-    r.Use(func(c *gin.Context) {
+    App.Use(func(c *gin.Context) {
         c.Writer.Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
         c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
@@ -37,18 +37,19 @@ func SetupRoutes() *gin.Engine {
     userController := &userController.UserController{UserServices: *userServices}
 
     // Rutas de tareas
-    r.GET("/tasks", taskController.GetAllTasksController)
-    r.GET("/tasks/user/:userID", taskController.GetTasksByUserIDController) 
-    r.POST("/tasks", taskController.CreateTaskHandler)
-    r.PUT("/tasks/:id", taskController.UpdateTaskHandler)
-    r.DELETE("/tasks/:id", taskController.DeleteTaskController)
+    App.GET("/tasks", taskController.GetAllTasksController)
+    App.GET("/tasks/user/:userID", taskController.GetTasksByUserIDController) 
+    App.POST("/tasks", taskController.CreateTaskHandler)
+    App.PUT("/tasks/:id", taskController.UpdateTaskHandler)
+    App.DELETE("/tasks/:id", taskController.DeleteTaskController)
 
     // Rutas de usuario
-    r.POST("/user/login", userController.Login)
-    r.POST("/user/register", userController.Register)
-    r.PUT("/user/edit/password", userController.EditPassword)
+    App.POST("/user/login", userController.Login)
+    App.POST("/user/register", userController.Register)
+    App.POST("/user/ForgotPass",userController.ForgotPasswordHandler)
+    App.POST("/user/ResetPass",userController.ResetPasswordHandler)
 
     
 
-    return r
+    return App
 }

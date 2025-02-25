@@ -51,19 +51,39 @@ func (usc *UserController) Login(c *gin.Context){
 	}
 }
 
-func (usc *UserController) EditPassword(c *gin.Context){
-	var request req
+func (uc *UserController) ForgotPasswordHandler(c *gin.Context) {
+    var request struct {
+        Email string `json:"email"`
+    }
+    if err := c.ShouldBindJSON(&request); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+        return
+    }
 
-	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
-		return
-	}
+    if err := uc.UserServices.ForgotPassword(request.Email); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
 
-
-	user, err := usc.UserServices.EditPassword(request.Email,request.Password)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	} 
-	c.JSON(http.StatusOK,user)
-
+    c.JSON(http.StatusOK, gin.H{"message": "Password reset token sent"})
 }
+
+func (uc *UserController) ResetPasswordHandler(c *gin.Context) {
+    var request struct {
+        Email       string `json:"email"`
+        Token       string `json:"token"`
+        NewPassword string `json:"new_password"`
+    }
+    if err := c.ShouldBindJSON(&request); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+        return
+    }
+
+    if err := uc.UserServices.ResetPassword(request.Email, request.Token, request.NewPassword); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "Password reset successful"})
+}
+

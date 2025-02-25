@@ -10,12 +10,11 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
         },
         body: JSON.stringify({ email: email, password: password })
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) {
-            return response.json().then(data => {
-                alert(data.error);
-                throw new Error(data.error);
-            });
+            const data = await response.json();
+            alert(data.error);
+            throw new Error(data.error);
         }
         return response.json();
     })
