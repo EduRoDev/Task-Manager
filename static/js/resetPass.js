@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('loginForm').addEventListener('submit', (event) => {
-        event.preventDefault();
+    document.getElementById('resetPasswordForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const new_password = document.getElementById('new_password').value;
         const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const token = document.getElementById('token').value;
+        const data = {new_password, email, token};
 
-        fetch('http://localhost:8080/user/login', {
+        fetch('http://localhost:8080/user/ResetPass',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify(data),
         })
         .then(async response => {
             if (!response.ok) {
@@ -21,21 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             console.log('Respuesta completa del servidor:', data);
-            
-            if (!data.user) {
-                throw new Error('Datos de usuario no presentes en la respuesta');
-            }
-        
-            console.log('Usuario logueado:', data.user);
-            localStorage.setItem('userId', data.user.id);
-
             const successLink = document.getElementById('successLink');
             successLink.click();
+            
         })
         .catch(error => {
             console.error('Error:', error);
         });
-    });
-
-});
-
+    })
+})
